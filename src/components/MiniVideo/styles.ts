@@ -1,3 +1,4 @@
+import { down } from 'styled-breakpoints';
 import styled from 'styled-components';
 
 export const Wrapper = styled.div`
@@ -7,4 +8,10 @@ export const Wrapper = styled.div`
   width: 120px;
   height: 120px;
   max-width: 120px;
+
+  ${down('sm')} {
+    width: 70px;
+    height: 70px;
+    max-width: 70px;
+  }
 `;

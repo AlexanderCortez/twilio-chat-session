@@ -6,6 +6,7 @@ type Props = {
 
 export const Wrapper = styled.div<Props>`
   height: 100%;
+  max-height: 100%;
   width: 100%;
   position: relative;
   overflow: hidden;
@@ -20,6 +21,9 @@ export const Wrapper = styled.div<Props>`
     width: 100%;
     object-position: center;
     object-fit: cover;
+    top: 50%;
+    transform: translateY(-50%);
+    position: relative;
     ${({ bordered }) =>
       bordered &&
       css`
@@ -31,6 +35,7 @@ export const Wrapper = styled.div<Props>`
 export const Label = styled.div`
   position: absolute;
   bottom: 0;
+  z-index: 1;
   width: 100%;
   overflow: hidden;
   text-align: center;

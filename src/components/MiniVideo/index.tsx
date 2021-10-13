@@ -1,12 +1,28 @@
 import Video from 'components/Video';
+import { useParticipant } from 'hooks/useParticipant';
+import { useContext, useRef } from 'react';
+import { RoomContext } from 'store';
 import { Wrapper } from './styles';
 
-const Participants = () => {
+const MiniVideo = () => {
+  const { room } = useContext(RoomContext);
+  const videoRef = useRef();
+
+  useParticipant({
+    participant: room?.localParticipant,
+    videoRef,
+  });
+
   return (
     <Wrapper>
-      <Video bordered autoPlay />
+      <Video
+        videoKey={room?.localParticipant?.sid}
+        bordered
+        autoPlay
+        videoRef={videoRef}
+      />
     </Wrapper>
   );
 };
 
-export default Participants;
+export default MiniVideo;

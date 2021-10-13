@@ -5,3 +5,7 @@ export interface ButtonProps
   children: React.ReactNode;
   isPrimary?: boolean;
 }
+
+export interface InputProps extends React.ComponentProps<'input'> {
+  isHeading?: boolean;
+}

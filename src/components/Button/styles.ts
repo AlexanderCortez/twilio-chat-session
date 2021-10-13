@@ -24,6 +24,7 @@ export const Wrapper = styled.button<Props>`
   box-shadow: none;
   appearance: none;
   border: none;
+  font-size: 16px;
 
   ${({ isPrimary }): StyleInterpolation | string =>
     isPrimary
@@ -36,7 +37,7 @@ export const Wrapper = styled.button<Props>`
 
           &:hover {
             box-shadow: 0 8px 16px 0
-              ${({ theme }): string => theme.palette.dark};
+              ${({ theme }): string => transparentize(theme.palette.dark, 0.2)};
 
             background-color: ${({ theme }): string =>
               transparentize(theme.palette.emphasis, 0.9)};

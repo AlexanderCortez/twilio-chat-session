@@ -1,10 +1,12 @@
 const config = require('./config');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 const bodyParser = require('body-parser');
 const { videoToken } = require('./tokens');
 
 const app = express();
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
@@ -12,8 +14,8 @@ const sendTokenResponse = (token, res) => {
   res.set('Content-Type', 'application/json');
   res.send(
     JSON.stringify({
-      token: token.toJwt(),
-    })
+      data: { token: token.toJwt() },
+    }),
   );
 };
 
@@ -38,5 +40,5 @@ app.get('/*', (_, res) => {
 });
 
 app.listen(config.port, () =>
-  console.log(`Express server is running on localhost:${config.port}`)
+  console.log(`Express server is running on localhost:${config.port}`),
 );

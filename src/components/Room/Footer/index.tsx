@@ -1,8 +1,11 @@
 import Button from 'components/Button';
 import Icon from 'components/Icon';
+import { useContext } from 'react';
+import { RoomContext } from 'store';
 import { Wrapper, ItemWrapper } from './styles';
 
 const Footer = () => {
+  const { logout } = useContext(RoomContext);
   return (
     <Wrapper>
       <ItemWrapper>
@@ -18,7 +21,7 @@ const Footer = () => {
         <p>Mic</p>
       </ItemWrapper>
       <ItemWrapper>
-        <Button>
+        <Button onClick={logout}>
           <Icon name="ri-checkbox-blank-line" size={24} isDanger />
         </Button>
         <p>Leave</p>
