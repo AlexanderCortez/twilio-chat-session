@@ -4,16 +4,16 @@ import { transparentize } from 'utils/styled';
 
 export const Wrapper = styled.div`
   position: absolute;
-  width: 100px;
-  height: 100%;
+  width: 100%;
+  height: fit-content;
 `;
 
 export const Trigger = styled(Button)`
   position: absolute;
   width: 5px;
   height: 5px;
-  right: 10px;
-  top: -5px;
+  right: -15px;
+  top: -10px;
   padding: 0;
 `;
 
@@ -23,7 +23,7 @@ export const OptionsWrapper = styled.div`
   flex-direction: column;
 
   min-width: 250px;
-  bottom: 110%;
+  bottom: calc(100% + 10px);
   left: -50%;
   background-color: ${({ theme }) => theme.palette.white};
 
