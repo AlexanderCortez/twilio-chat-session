@@ -10,17 +10,25 @@ const VideoCall = () => {
   const { participants } = useContext(RoomContext);
   const remoteParticipant = [...(participants || [])].pop();
   const videoRef = useRef();
-  useParticipant({ participant: remoteParticipant, videoRef });
+  const audioRef = useRef<any>();
+  useParticipant({
+    participant: remoteParticipant,
+    videoRef,
+    audioRef,
+  });
 
   return (
     <Wrapper>
       {remoteParticipant ? (
-        <Video
-          autoPlay
-          videoRef={videoRef}
-          videoKey={remoteParticipant.sid}
-          label={remoteParticipant?.identity}
-        />
+        <>
+          <Video
+            autoPlay
+            videoRef={videoRef}
+            videoKey={remoteParticipant.sid}
+            label={remoteParticipant?.identity}
+          />
+          <audio ref={audioRef} autoPlay />
+        </>
       ) : (
         <Nobody />
       )}

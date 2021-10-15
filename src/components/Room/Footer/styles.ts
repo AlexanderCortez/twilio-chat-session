@@ -14,6 +14,7 @@ export const ItemWrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  position: relative;
 
   &:not(:last-child) {
     margin-right: ${({ theme }) => `calc(${theme.spacing.gutter} * 2)`};

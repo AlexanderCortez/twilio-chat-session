@@ -5,4 +5,12 @@ export type RoomContextState = {
   participants?: Video.RemoteParticipant[];
   setRoom: (username: string) => void;
   logout: () => void;
+  changeDevice: (device: MediaDeviceInfo) => void;
+  videoRef?: any;
+  audioRef?: any;
+  devices: {
+    microphones: MediaDeviceInfo[];
+    outputs: MediaDeviceInfo[];
+    cameras: MediaDeviceInfo[];
+  };
 };

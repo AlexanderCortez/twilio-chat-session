@@ -1,13 +1,10 @@
 import { useEffect, useState } from 'react';
 import Video, {
   LocalAudioTrack,
-  LocalAudioTrackPublication,
   LocalTrack,
   LocalVideoTrack,
-  LocalVideoTrackPublication,
-  RemoteTrackPublication,
-  RemoteVideoTrackPublication,
 } from 'twilio-video';
+import { trackpubsToTracks } from 'utils/twilio';
 
 type Props = {
   participant?: Video.Room['localParticipant'] | Video.RemoteParticipant;
@@ -39,30 +36,14 @@ export const useParticipant = ({ participant, videoRef, audioRef }: Props) => {
     }
   }, [audioTracks, audioRef]);
 
-  const trackpubsToTracks = (
-    values: IterableIterator<
-      | LocalAudioTrackPublication
-      | LocalVideoTrackPublication
-      | RemoteTrackPublication
-      | RemoteVideoTrackPublication
-    >,
-  ) =>
-    Array.from(values)
-      .map((publication) => publication.track)
-      .filter((track) => track !== null);
-
   useEffect(() => {
     if (participant) {
       setVideoTracks(
-        trackpubsToTracks(
-          participant.videoTracks.values(),
-        ) as LocalVideoTrack[],
+        trackpubsToTracks<LocalVideoTrack>(participant.videoTracks.values()),
       );
 
       setAudioTracks(
-        trackpubsToTracks(
-          participant.audioTracks.values(),
-        ) as LocalAudioTrack[],
+        trackpubsToTracks<LocalAudioTrack>(participant.audioTracks.values()),
       );
 
       const trackSubscribed = (track: LocalTrack) => {
@@ -76,11 +57,11 @@ export const useParticipant = ({ participant, videoRef, audioRef }: Props) => {
       const trackUnsubscribed = (track: LocalTrack) => {
         if (track.kind === 'video') {
           setVideoTracks((videoTracks) =>
-            videoTracks.filter((v) => v !== track),
+            videoTracks.filter((v) => v.name !== track.name),
           );
         } else if (track.kind === 'audio') {
           setAudioTracks((audioTracks) =>
-            audioTracks.filter((a) => a !== track),
+            audioTracks.filter((a) => a.name !== track.name),
           );
         }
       };
